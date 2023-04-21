@@ -30,7 +30,7 @@ def run() :
         "--report",
         action="store",
         dest="blast_report ",
-        help="blast (-outfmt 6) or diamond (--outfmt 6) report",
+        help="blast (-outfmt 6) or diamond (--outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send slen evalue bitscore sskingdoms sphylums sscinames staxids skingdoms salltitles) report",
         default="",
         required=True,
     )
@@ -53,6 +53,8 @@ def run() :
         required=True,
     )
     
+    optional_args = parser.add_argument_group("Optional arguments")
+
     # Output
     optional_args.add_argument(
         "--output",
@@ -78,11 +80,16 @@ def run() :
     os.chdir(args.output_dir)
 
     global_start = time.perf_counter()
-
+    list_path_file_protein_report = separiting_file.separiting(args.blast_report,args.id_prot)
 
     print(
         f"\n Total running time : {float(time.perf_counter() - global_start)} seconds"
     )
             
+    number_of_protein=pd.read_csv(args.id_prot, sep="\t", header=None)
+    
+    for sample in range (0,number_of_protein.shape[0]):
+
+    
 if __name__ == '__main__':
     run()

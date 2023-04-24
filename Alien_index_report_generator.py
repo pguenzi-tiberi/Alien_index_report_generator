@@ -8,7 +8,7 @@ import shutil
 import pandas as pd
 from sympy import im 
 #from lib import merging
-#from lib import prepare
+from lib import traitement
 from lib import separiting_file
 
 
@@ -86,10 +86,8 @@ def run() :
         f"\n Total running time : {float(time.perf_counter() - global_start)} seconds"
     )
 
-    print(list_path_file_protein_report) 
-    number_of_protein=pd.read_csv(args.id_prot, sep="\t", header=None)
-    
-    #for sample in range (0,number_of_protein.shape[0]):
+    aaaaaaaa=traitement.writing_alien_index_report(list_path_file_protein_report,args.id_prot,args.kingdom)
+
 
 
     

@@ -7,8 +7,8 @@ import time
 import shutil
 import pandas as pd
 from sympy import im 
-from lib import merging
-from lib import prepare
+#from lib import merging
+#from lib import prepare
 from lib import separiting_file
 
 
@@ -29,7 +29,7 @@ def run() :
     mandatory_args.add_argument(
         "--report",
         action="store",
-        dest="blast_report ",
+        dest="blast_report",
         help="blast (-outfmt 6) or diamond (--outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send slen evalue bitscore sskingdoms sphylums sscinames staxids skingdoms salltitles) report",
         default="",
         required=True,
@@ -85,10 +85,12 @@ def run() :
     print(
         f"\n Total running time : {float(time.perf_counter() - global_start)} seconds"
     )
-            
+
+    print(list_path_file_protein_report) 
     number_of_protein=pd.read_csv(args.id_prot, sep="\t", header=None)
     
-    for sample in range (0,number_of_protein.shape[0]):
+    #for sample in range (0,number_of_protein.shape[0]):
+
 
     
 if __name__ == '__main__':

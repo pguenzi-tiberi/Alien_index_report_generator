@@ -82,13 +82,13 @@ def run() :
     global_start = time.perf_counter()
     list_path_file_protein_report = separiting_file.separiting(args.blast_report,args.id_prot)
 
+
+    list_line_new_file=traitement.writing_alien_index_report(list_path_file_protein_report,args.id_prot,args.kingdom)
+    traitement.writting_file(list_line_new_file)
+
     print(
         f"\n Total running time : {float(time.perf_counter() - global_start)} seconds"
     )
-
-    aaaaaaaa=traitement.writing_alien_index_report(list_path_file_protein_report,args.id_prot,args.kingdom)
-
-
 
     
 if __name__ == '__main__':

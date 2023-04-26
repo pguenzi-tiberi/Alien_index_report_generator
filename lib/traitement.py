@@ -23,11 +23,12 @@ def writing_alien_index_report( list_path_file_protein_report : list , number_of
         blast_report_sample_sorted_by_evalue=blast_report_sample.sort_values(by=[12],ascending=True,ignore_index=True)
         match_kingdom=blast_report_sample_sorted_by_evalue[blast_report_sample_sorted_by_evalue[18] == str(kingdom)].index.values
         match_other=blast_report_sample_sorted_by_evalue[blast_report_sample_sorted_by_evalue[18] != str(kingdom)].index.values
+        print(blast_report_sample_sorted_by_evalue)
 
         if len(match_kingdom) != 0:
             best_match_kingdom = match_kingdom[0]
             evalue_best_match_kingdom=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,12]
-            best_hit_kingdom_organism=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,18]+";"+blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,16]
+            best_hit_kingdom_organism=str(blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,18])+";"+str(blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,16])
         else:
             evalue_best_match_kingdom=1
             best_hit_kingdom_organism="No hits"
@@ -35,26 +36,26 @@ def writing_alien_index_report( list_path_file_protein_report : list , number_of
         if len(match_other) != 0:
             best_match_other = match_other[0]
             evalue_best_match_other = blast_report_sample_sorted_by_evalue.iloc[best_match_other,12]
-            best_hit_other_organism=blast_report_sample_sorted_by_evalue.iloc[best_match_other,18]+";"+blast_report_sample_sorted_by_evalue.iloc[best_match_other,16]
+            best_hit_other_organism=str(blast_report_sample_sorted_by_evalue.iloc[best_match_other,18])+";"+str(blast_report_sample_sorted_by_evalue.iloc[best_match_other,16])
         else:
             evalue_best_match_other = 1
             best_hit_other_organism="No hits"
             best_match_other = 99.99
 
         gene_ID=blast_report_sample_sorted_by_evalue.iloc[0,1]
-        AI=math.log10(evalue_best_match_kingdom+1e-200)-math.log10(evalue_best_match_other+1e-200)
+        AI=math.log(evalue_best_match_kingdom+1e-200)-math.log(evalue_best_match_other+1e-200)
         best_hit_evalue_kingdom=evalue_best_match_kingdom
         
         if best_match_kingdom < best_match_other :
             gene_ID_best_Hit=gene_ID=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,1]
             percentage_of_identity=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,3]
             best_hit_evalue=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,12]
-            Name_of_protein=blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,18]
+            Name_of_protein=str(blast_report_sample_sorted_by_evalue.iloc[best_match_kingdom,19])
         if best_match_kingdom > best_match_other :
             gene_ID_best_Hit=blast_report_sample_sorted_by_evalue.iloc[best_match_other,1]
             percentage_of_identity=blast_report_sample_sorted_by_evalue.iloc[best_match_other,3]
             best_hit_evalue=blast_report_sample_sorted_by_evalue.iloc[best_match_other,12]
-            Name_of_protein=blast_report_sample_sorted_by_evalue.iloc[best_match_other,18]
+            Name_of_protein=str(blast_report_sample_sorted_by_evalue.iloc[best_match_other,19])
                 
         text_new_line_for_final_report=str(gene_ID)+"\t"+str(gene_ID_best_Hit)+"\t"+str(AI)+"\t"+str(percentage_of_identity)+"\t"+str(best_hit_evalue)+"\t"+str(best_hit_evalue_kingdom)+"\t"+str(best_hit_kingdom_organism)+"\t"+str(best_hit_other_organism)+"\t"+str(Name_of_protein)
         list_line_new_file.append(text_new_line_for_final_report)

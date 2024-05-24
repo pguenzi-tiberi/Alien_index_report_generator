@@ -12,9 +12,11 @@ Then, you have to generate the `lis_id_prot_fungi_uniq` file :
 
 `awk -F "\t" '{print $1}' report_blast.tsv | sort| uniq > lis_id_prot_fungi_uniq`
 
+`sort -k1 report_blast.tsv > report_blast_sorted.tsv`
+
 Finally : 
 
-`Alien_index_report_generator --report /abspath/report_blast.tsv --id /abspath/lis_id_prot_fungi_uniq --kingdom Fungi`
+`Alien_index_report_generator --report /abspath/report_blast_sorted.tsv --id /abspath/lis_id_prot_fungi_uniq --kingdom Fungi`
 
 The different kingdom which can be used by this file are :
 
